@@ -28,10 +28,10 @@ class HomePage(tornado.web.RequestHandler):
 def make_app():
     return tornado.web.Application([
         (r"/", HomePage),
-        # (r"/lyrics", LyricsPage)
     ],
         debug=True,
         autoreload=True,
+        static_path="static"
     )
 
 
