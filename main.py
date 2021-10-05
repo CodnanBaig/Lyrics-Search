@@ -32,7 +32,6 @@ def make_app():
     ],
         debug=True,
         autoreload=True,
-        static_path="static",
     )
 
 
