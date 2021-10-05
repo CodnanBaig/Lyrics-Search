@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>LyricsMatch</title>
+  </head>
+  <body>
+
+    <!-- HomePage -->
+    <section id="home">
+      <div class="container">
+        <div class="heading ">
+          <div class="row">
+            <div class="col-md-8">
+              <h1>Liked A Song?<br> Get The Lyrics!</h1>
+            </div>
+        </div>
+        <div class="input">
+            <input type="text" id="artist_name" placeholder="Enter Artist" name="artist" value="" class="srch"><br>
+            <input type="text" id="song_name" placeholder="Enter Song" name="song" value="" class="srch"><br>
+            <button type="button" href="templates/lyrics.html" class="btn" onclick="getLyricsData();displayLyrics()">Search</button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+        <section id="lists">
+      <h2>Results</h2><br>
+        <p id="result" class="f_lyrics" style="padding-left: 25%; padding-right: 25%; padding-bottom: 5%; margin-bottom: 0px;">
+
+        </p>
+    </section>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+  </body>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript">
+      async function displayLyrics() {
+          const artist_name = $('#artist_name').val()
+          const song_name = $('#song_name').val()
+          const apiURL = "https://api.lyrics.ovh/v1/"
+          const response = await fetch(apiURL + "/" + artist_name + "/" + song_name);
+          const lyrics = await response.json()
+          const f_lyrics = lyrics.lyrics
+
+          document.getElementById("result").innerHTML = f_lyrics
+      }
+
+  </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+      function getLyricsData() {
+        let url = "/";
+        let data = {
+            artist_name: $('#artist_name').val(),
+            song_name: $('#song_name').val(),
+        };
+        $.post(url, data, function(response) {
+          console.log(response);
+        });
+      }
+    </script>
+</html>
