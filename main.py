@@ -14,7 +14,7 @@ class HomePage(tornado.web.RequestHandler):
         # data = response.json()
         # lyrics = data["lyrics"]
         # print(lyrics)
-        self.render("templates/index.html")
+        self.render("index.html")
 
     def post(self):
         artist_name = self.get_body_argument("artist_name")
@@ -23,7 +23,7 @@ class HomePage(tornado.web.RequestHandler):
         data = response.json()
         lyrics = data["lyrics"]
         print(lyrics)
-        self.render("templates/index.html", lyrics=lyrics, song_name=song_name, artist_name=artist_name)
+        self.render("index.html", lyrics=lyrics, song_name=song_name, artist_name=artist_name)
 
 def make_app():
     return tornado.web.Application([
