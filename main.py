@@ -8,22 +8,8 @@ apiurl = "https://api.lyrics.ovh/v1/"
 
 class HomePage(tornado.web.RequestHandler):
     def get(self):
-        # artist_name = self.get_body_argument("artist_name")
-        # song_name = self.get_body_argument("song_name")
-        # response = requests.get(f"{apiurl}/{artist_name}/{song_name}")
-        # data = response.json()
-        # lyrics = data["lyrics"]
-        # print(lyrics)
         self.render("index.html")
 
-    def post(self):
-        artist_name = self.get_body_argument("artist_name")
-        song_name = self.get_body_argument("song_name")
-        response = requests.get(f"{apiurl}/{artist_name}/{song_name}")
-        data = response.json()
-        lyrics = data["lyrics"]
-        print(lyrics)
-        self.render("index.html", lyrics=lyrics, song_name=song_name, artist_name=artist_name)
 
 def make_app():
     return tornado.web.Application([

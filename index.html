@@ -21,23 +21,24 @@
               <h1>Liked A Song?<br> Get The Lyrics!</h1>
             </div>
         </div>
-        <div class="input">
-            <input type="text" id="artist_name" placeholder="Enter Artist" name="artist" value="" class="srch"><br>
-            <input type="text" id="song_name" placeholder="Enter Song" name="song" value="" class="srch"><br>
-            <button type="button" href="templates/lyrics.html" class="btn" onclick="getLyricsData();displayLyrics()">Search</button>
-          </div>
+        <form class="input" id="form" autocomplete="off">
+            <input type="text" id="artist_name" placeholder="Enter Artist" name="artist" value="" class="srch" required><br>
+            <input type="text" id="song_name" placeholder="Enter Song" name="song" value="" class="srch" required><br>
+            <button type="button" class="btn" onclick="displayLyrics()">Search</button>
+        </form>
 
         </div>
       </div>
     </section>
 
 
-        <section id="lists">
-      <h2>Results</h2><br>
-        <p id="result" class="f_lyrics" style="padding-left: 25%; padding-right: 25%; padding-bottom: 5%; margin-bottom: 0px;">
-
-        </p>
+    <section id="lists">
+      <div class="lyrics">
+        <p id="result">Results will be shown here..</p><br>
+      </div>
     </section>
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
@@ -52,25 +53,23 @@
           const song_name = $('#song_name').val()
           const apiURL = "https://api.lyrics.ovh/v1/"
           const response = await fetch(apiURL + "/" + artist_name + "/" + song_name);
-          const lyrics = await response.json()
-          const f_lyrics = lyrics.lyrics
+          if (response.ok) {
+            console.log("success")
+          }
+          else {
+            alert("No data for that input")
+          }
+          const data = await response.json()
+          const f_lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, "<br>");
 
           document.getElementById("result").innerHTML = f_lyrics
+          console.log(f_lyrics)
       }
 
   </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>
-      function getLyricsData() {
-        let url = "/";
-        let data = {
-            artist_name: $('#artist_name').val(),
-            song_name: $('#song_name').val(),
-        };
-        $.post(url, data, function(response) {
-          console.log(response);
-        });
-      }
+
     </script>
 </html>
