@@ -51,14 +51,22 @@
       async function displayLyrics() {
           const artist_name = $('#artist_name').val()
           const song_name = $('#song_name').val()
+          if(artist_name === "" && song_name === "") {
+            alert("Input is empty")
+          }
           const apiURL = "https://api.lyrics.ovh/v1/"
           const response = await fetch(apiURL + "/" + artist_name + "/" + song_name);
           if (response.ok) {
             console.log("success")
           }
+          else if(response.status === 404) {
+            throw "No data"
+          }
+
           else {
             alert("No data for that input")
           }
+
           const data = await response.json()
           const f_lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, "<br>");
 

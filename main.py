@@ -1,7 +1,7 @@
 import tornado.web
 import tornado.ioloop
 import tornado.httpclient
-import requests
+
 
 apiurl = "https://api.lyrics.ovh/v1/"
 
